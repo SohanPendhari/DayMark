@@ -1,0 +1,5 @@
+.env
+*.local
+/backend/*.exe
+/apps/client/build/
+/apps/client/.dart_tool/

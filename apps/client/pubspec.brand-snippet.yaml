@@ -1,0 +1,12 @@
+# Merge into apps/client/pubspec.yaml under the `flutter:` key.
+# No extra packages are needed: the supplied logos are PNGs loaded with Image.asset.
+# Android/web icon files are NOT Flutter assets; they are applied by
+# `python branding/apply_brand.py apps/client`.
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/brand/logo/
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/brand/fonts/Manrope.ttf   # variable font, weight axis 200-800

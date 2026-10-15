@@ -1,0 +1,27 @@
+# Render Blueprint: PostgreSQL + the DAYMARK API. Create it with "New > Blueprint".
+databases:
+  - name: daymark-db
+    plan: free            # note: Render's free Postgres expires; see docs/deployment.md
+    databaseName: daymark
+    user: daymark
+    ipAllowList: []       # private: reachable only from Render services in the same region
+
+services:
+  - type: web
+    name: daymark-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/v1/health     # liveness only; does not touch the database
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase: { name: daymark-db, property: connectionString }
+      - key: DAYMARK_SETUP_SECRET
+        sync: false                      # you enter this in the dashboard; never commit it
+      - key: DAYMARK_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        sync: false                      # e.g. https://daymark.example.com
+      - key: TRUST_PROXY_HOPS
+        value: "1"

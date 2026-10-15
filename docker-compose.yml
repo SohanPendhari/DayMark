@@ -1,0 +1,35 @@
+# Local development stack: PostgreSQL + API. NOT for production.
+# Usage:  copy .env.example to .env, then:  docker compose up --build
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: daymark
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: daymark
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"   # loopback only; never publish PostgreSQL on a public interface
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U daymark"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://daymark:${POSTGRES_PASSWORD}@db:5432/daymark?sslmode=disable
+      DAYMARK_SETUP_SECRET: ${DAYMARK_SETUP_SECRET:?set DAYMARK_SETUP_SECRET in .env}
+      DAYMARK_ENV: development
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8081}
+      ADDR: ":8080"
+    ports:
+      - "127.0.0.1:8080:8080"
+
+volumes:
+  dbdata:
