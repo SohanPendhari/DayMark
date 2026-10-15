@@ -220,7 +220,7 @@ The project's license has not yet been specified. Until a license is added, plea
 
 ---
 
-\<p align="center">
-&#x20; \<strong>DAYMARK\</strong>\<br/>
-&#x20; Plan your day. Track your progress.
+<p align="center">
+&#x20; \\<strong>DAYMARK\</strong>\<br/>
+&#x20; \ Plan your day. Track your progress.
 \</p>
