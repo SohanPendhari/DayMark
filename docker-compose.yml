@@ -1,5 +1,6 @@
-# Local development stack: PostgreSQL + API. NOT for production.
-# Usage:  copy .env.example to .env, then:  docker compose up --build
+# Local development stack: PostgreSQL + API. Not for production.
+# Start with: docker compose up --build -d
+
 services:
   db:
     image: postgres:16-alpine
@@ -9,13 +10,13 @@ services:
       POSTGRES_DB: daymark
     volumes:
       - dbdata:/var/lib/postgresql/data
-    ports:
-      - "127.0.0.1:5432:5432"   # loopback only; never publish PostgreSQL on a public interface
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U daymark"]
+      test: ["CMD-SHELL", "pg_isready -U daymark -d daymark"]
       interval: 5s
       timeout: 3s
       retries: 10
+      start_period: 5s
+    restart: unless-stopped
 
   api:
     build: ./backend
@@ -30,6 +31,7 @@ services:
       ADDR: ":8080"
     ports:
       - "127.0.0.1:8080:8080"
+    restart: unless-stopped
 
 volumes:
   dbdata:

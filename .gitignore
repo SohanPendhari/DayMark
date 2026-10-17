@@ -3,3 +3,23 @@
 /backend/*.exe
 /apps/client/build/
 /apps/client/.dart_tool/
+
+# Flutter and Android generated files
+apps/client/.flutter-plugins
+apps/client/.flutter-plugins-dependencies
+apps/client/.dart_tool/
+apps/client/build/
+apps/client/.idea/
+apps/client/*.iml
+apps/client/android/.gradle/
+apps/client/android/local.properties
+
+# IDE and generated files
+.idea/
+*.iml
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Android local files
+**/android/local.properties
+**/android/.gradle/

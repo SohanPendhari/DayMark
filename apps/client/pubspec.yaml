@@ -1,0 +1,47 @@
+
+name: daymark
+description: DayMark local-first productivity app.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  # Drift and flutter_local_notifications require modern Dart versions.
+  sdk: ^3.10.0
+  flutter: ">=3.38.1"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Flutter web plugin SDK
+  flutter_web_plugins:
+    sdk: flutter
+
+  # Local database (keep versions aligned with the web WASM and worker files).
+  drift: 2.35.2
+  drift_flutter: 0.3.1
+  sqlite3: 3.5.2
+
+  # Reminders: Android scheduling and browser notifications.
+  flutter_local_notifications: ^22.3.2
+  timezone: ^0.11.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+  # Drift database code generation.
+  build_runner: ^2.15.0
+  drift_dev: 2.35.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/brand/logo/
+
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/brand/fonts/Manrope.ttf
